@@ -1,0 +1,72 @@
+                                                                                    /*   How JavaScript Code is Executed    */
+
+
+JavaScript is single-threaded and runs on an event-driven model. Here's the detailed process of how JavaScript code is executed: 
+
+
+1. The JavaScript Engine
+   JavaScript code execution occurs in the engine. For instance, the V8 engine (used in Chrome and Node.js) comprises:
+        Memory Heap: Where objects and variables are allocated.
+        Call Stack: Tracks function calls and their execution contexts.
+
+2. Execution Steps
+    (a) Parsing and Compilation
+        1-The JavaScript engine parses the code and converts it into an Abstract Syntax Tree (AST).
+        2-The AST is compiled into bytecode or machine code.
+    (b) Execution
+       1- Global Execution Context:
+
+          The engine creates the Global Execution Context (GEC).
+          Two phases happen:
+          Creation Phase: Memory is allocated for variables and functions.
+          Execution Phase: Code is executed line by line.
+      2- Function Execution Context:
+
+            Every function call creates a new Execution Context (FEC), which is pushed to the Call Stack.
+            The engine executes the function, and when it finishes, the FEC is popped off the Call Stack.
+      3- Asynchronous Operations:
+
+            Non-blocking tasks (e.g., setTimeout, fetch) are handled by the Web APIs (in browsers) or Node.js APIs.
+            These tasks are sent to the Event Loop, which monitors the Callback Queue and pushes completed tasks to the Call Stack when it is empty.
+
+
+3. The Call Stack
+        The Call Stack is a data structure that tracks the execution of functions in a Last-In, First-Out (LIFO) manner. It handles the following:
+        
+    (a) Adding Functions
+        When a function is invoked, it’s added to the Call Stack.
+    (b) Removing Functions
+        When a function completes execution, it is removed from the Call Stack.
+    (c) Errors
+        If the stack overflows (too many calls, e.g., infinite recursion), it throws a stack overflow error.
+
+                                                                                     /*   What is Event Loop in JS.  */
+
+
+1. The Call Stack
+The Call Stack is a data structure used by JavaScript to keep track of the function calls and their execution order.
+
+   (a)  Last In, First Out (LIFO): Functions pushed onto the stack are executed last, and functions are removed from the stack as they finish execution.
+   (b)  Manages Execution Contexts: Each function has its own execution context, which is pushed onto the Call Stack when the function is called.
+How It Works
+        When a function is called, it is pushed onto the stack.
+        The engine starts executing the function.
+        If a function calls another function, the new function is pushed onto the stack.
+        Once a function completes execution, it is popped off the stack.
+
+
+                                                                                       /*   What is Event Loop in JS.  */
+
+The Event Loop : 
+            The Event Loop ensures that JavaScript handles asynchronous operations effectively.
+            
+            Purpose: It monitors the Call Stack and Callback Queue.
+            Mechanism:
+            If the Call Stack is empty, the Event Loop pushes tasks from the Callback Queue to the Call Stack for execution.
+            It ensures the program remains non-blocking, even with asynchronous tasks like setTimeout, fetch, or event listeners.
+
+
+ The Callback Queue :
+            Stores callbacks from asynchronous operations (e.g., setTimeout, fetch, event listeners).
+            These callbacks are added to the queue by the browser's Web APIs (or Node.js APIs).
+            The Event Loop moves callbacks from the queue to the Call Stack when the stack is empty.
